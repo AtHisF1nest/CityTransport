@@ -1,0 +1,13 @@
+version: '3.2'
+
+services:
+  db:
+    build: ./CityTransportDB
+    networks: 
+      - backend
+    ports:
+      - "5432:5432"
+
+networks: 
+  backend:
+  frontend:
