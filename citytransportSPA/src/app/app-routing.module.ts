@@ -6,10 +6,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
-  { path: '', component: StaticComponent },
-  { path: 'auth', component: AuthComponent },
-  { path: 'auth/login', component: LoginComponent },
-  { path: 'auth/register', component: RegisterComponent }
+  { path: '', component: AuthComponent },
+  { path: 'logowanie', component: LoginComponent },
+  { path: 'rejestracja', component: RegisterComponent }
 ];
 
 @NgModule({
