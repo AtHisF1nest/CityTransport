@@ -1,4 +1,6 @@
 import { ImageElement } from './image-element';
+import { EventElement } from './event-element';
+import { KeyValue } from '@angular/common';
 
 export interface GameElement {
     name: string;
@@ -8,4 +10,6 @@ export interface GameElement {
     gridHeight: number;
     imageElement: ImageElement;
     childGameElement: GameElement;
+    events: Array<EventElement>;
+    styles: Array<KeyValue<string, string>>;
 }

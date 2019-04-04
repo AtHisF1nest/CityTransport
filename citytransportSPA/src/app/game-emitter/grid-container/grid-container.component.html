@@ -1,0 +1,6 @@
+<div class="grid" [ngStyle]="{'width': gridWidth, 'height': gridHeight}">
+  <div class="grid-element" *ngFor="let gridElement of gameContainer.elementsSpec.grid; let i=index" 
+    (click)="gridElementClick(gridElement)">
+    
+  </div>
+</div>

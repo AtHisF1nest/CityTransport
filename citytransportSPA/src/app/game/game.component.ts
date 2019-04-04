@@ -5,6 +5,9 @@ import { AssetsSpecification } from '../game-emitter/interfaces/assets-specifica
 import { ElementsSpecification } from '../game-emitter/interfaces/elements-specification';
 import { GuiSpecification } from '../game-emitter/interfaces/gui-specification';
 import { GuiPosition } from '../game-emitter/enums/gui-position.enum';
+import { EventElement } from '../game-emitter/interfaces/event-element';
+import { EventType } from '../game-emitter/enums/event-type.enum';
+import { GameElement } from '../game-emitter/interfaces/game-element';
 
 @Component({
   selector: 'app-game',
@@ -38,6 +41,21 @@ export class GameComponent implements OnInit {
       gridHeight: 12,
       gridWidth: 22
     };
+
+    for (let i = 0; i < 264; i++) {
+      const eventsArray: Array<EventElement> = new Array();
+      eventsArray.push({
+        eventType: EventType.OnClick,
+        eventFunction: function(sender: GameElement) {
+          
+        }
+      });
+
+      this.elementsSpec.grid.push(
+        { name: 'field', xCord: 0, yCord: 0,  gridWidth: 1, gridHeight: 1, imageElement: null, 
+        childGameElement: null, events: eventsArray, styles: null }
+      );
+    }
 
     this.guiSpec = {
       guiElements: new Array(),
