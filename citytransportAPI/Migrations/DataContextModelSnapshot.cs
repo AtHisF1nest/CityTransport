@@ -16,7 +16,7 @@ namespace citytransportAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Core.Data.Models.City", b =>
@@ -26,11 +26,15 @@ namespace citytransportAPI.Migrations
 
                     b.Property<DateTime>("Created");
 
+                    b.Property<int>("GridX");
+
+                    b.Property<int>("GridY");
+
                     b.Property<decimal>("Money");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OwnerId");
+                    b.Property<int?>("OwnerId");
 
                     b.Property<int>("Population");
 
@@ -39,6 +43,62 @@ namespace citytransportAPI.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("Core.Data.Models.Configuration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ConfigSerialized");
+
+                    b.Property<short>("ConfigurationType");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Configurations");
+                });
+
+            modelBuilder.Entity("Core.Data.Models.MapField", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CityId");
+
+                    b.Property<short>("ElementType");
+
+                    b.Property<int>("GridHeight");
+
+                    b.Property<int>("GridWidth");
+
+                    b.Property<int>("GridX");
+
+                    b.Property<int>("GridY");
+
+                    b.Property<int?>("PhotoId");
+
+                    b.Property<bool>("Visible");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("PhotoId");
+
+                    b.ToTable("MapFields");
+                });
+
+            modelBuilder.Entity("Core.Data.Models.Photo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("SourcePath");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Core.Data.Models.Player", b =>
@@ -54,11 +114,33 @@ namespace citytransportAPI.Migrations
 
                     b.Property<decimal>("Money");
 
-                    b.Property<byte[]>("Password");
+                    b.Property<byte[]>("PasswordHash");
+
+                    b.Property<byte[]>("PasswordSalt");
 
                     b.HasKey("Id");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("Core.Data.Models.UserVehicle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Bought");
+
+                    b.Property<int>("OwnerId");
+
+                    b.Property<int>("VehicleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("UserVehicles");
                 });
 
             modelBuilder.Entity("Core.Data.Models.Vehicle", b =>
@@ -68,21 +150,19 @@ namespace citytransportAPI.Migrations
 
                     b.Property<int>("Capacity");
 
-                    b.Property<decimal>("Cost");
-
-                    b.Property<DateTime>("Created");
+                    b.Property<int>("Cost");
 
                     b.Property<decimal>("Fuel");
 
-                    b.Property<int>("OwnerId");
+                    b.Property<int?>("PhotoId");
 
-                    b.Property<decimal>("Speed");
+                    b.Property<int>("Speed");
 
                     b.Property<short>("VehicleType");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("PhotoId");
 
                     b.ToTable("Vehicles");
                 });
@@ -91,16 +171,39 @@ namespace citytransportAPI.Migrations
                 {
                     b.HasOne("Core.Data.Models.Player", "Owner")
                         .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OwnerId");
                 });
 
-            modelBuilder.Entity("Core.Data.Models.Vehicle", b =>
+            modelBuilder.Entity("Core.Data.Models.MapField", b =>
+                {
+                    b.HasOne("Core.Data.Models.City", "InCity")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Core.Data.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
+                });
+
+            modelBuilder.Entity("Core.Data.Models.UserVehicle", b =>
                 {
                     b.HasOne("Core.Data.Models.Player", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Core.Data.Models.Vehicle", "Vehicle")
+                        .WithMany()
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Core.Data.Models.Vehicle", b =>
+                {
+                    b.HasOne("Core.Data.Models.Photo", "Photo")
+                        .WithMany()
+                        .HasForeignKey("PhotoId");
                 });
 #pragma warning restore 612, 618
         }

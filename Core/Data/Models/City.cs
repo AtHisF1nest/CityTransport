@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Data.Models
 {
+    [Serializable]
     public class City
     {
         [Key]
@@ -16,6 +17,8 @@ namespace Core.Data.Models
 
         [ForeignKey(nameof(OwnerId))]
         public virtual Player Owner { get; set; }
-        public int OwnerId { get; set; }
+        public int? OwnerId { get; set; }
+        public int GridX { get; set; }
+        public int GridY { get; set; }
     }
 }

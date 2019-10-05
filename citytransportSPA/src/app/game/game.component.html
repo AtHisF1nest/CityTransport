@@ -1,7 +1,17 @@
-<app-shared>
-  <div>
-      <div class="game-container shadow-lg smooth-edge">
-        <app-game-emitter [gameContainer]="gameContainer"></app-game-emitter>
+<div class="container">
+  <div class="game-container">
+    <div class="scrollable-x">
+      <div class="gui-container">
+        <app-gui [playerInfo]="playerInfo"></app-gui>
       </div>
+    </div>
+    <hr />
+    <div class="scrollable">
+      <div class="grid-container">
+        <app-grid [gridElements]="gridElements">
+  
+        </app-grid>
+      </div>
+    </div>
   </div>
-</app-shared>
+</div>

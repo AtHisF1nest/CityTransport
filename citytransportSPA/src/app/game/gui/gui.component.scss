@@ -1,0 +1,50 @@
+.gui-element {
+    text-align: center;
+    width:10%;
+    height: 100%;
+    border-right: 1px solid black;
+    float: left;
+
+    .row {
+        margin-bottom: 5px;
+        border-bottom: 1px solid rgba(0,0,0,.3);
+        border-width: 48%;
+        border-bottom-width: thin;
+        margin: auto;
+        margin-bottom: 5px;
+        width: 63%;
+
+        span {
+            font-size: 13px;
+            line-height: 26px;
+            font-family: 'Segoe UI Light', Tahoma, Geneva, Verdana, sans-serif
+        }
+    }
+
+    .row-wb {
+        border-bottom: none;
+        width: 90%;
+        margin:auto;
+    }
+}
+
+.gui-vehicles {
+    width: 40%;
+    .gui-vehicle {
+        width: 100px;
+        height: 40px;
+        margin: 2px;
+        opacity: .8;
+
+        img {
+            width: inherit;
+            height: inherit;
+            opacity: inherit;
+        }
+
+        :hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+    }
+}

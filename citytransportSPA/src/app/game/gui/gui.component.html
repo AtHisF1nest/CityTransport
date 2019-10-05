@@ -1,0 +1,35 @@
+<div class="gui-elements" *ngIf="playerInfo">
+  <div class="gui-element gui-player-info">
+    <div class="row">
+        <span>
+            <b>{{playerInfo.player.name}}</b>   
+        </span>
+    </div>
+    <div class="row">
+        <span>
+            {{playerInfo.player.age}} dni
+        </span>
+    </div>
+    <div class="row">
+        <span>
+            {{playerInfo.player.money}} $
+        </span>
+    </div>
+  </div>
+  <div class="gui-element gui-vehicles">
+      <div class="row">
+          <span>
+              <b>Twoje dostępne pojazdy</b>
+          </span>
+      </div>
+      <div class="row-wb">
+        <app-gui-element-vehicle *ngFor="let vehicle of this.playerInfo.availableVehicles" 
+            [vehicle]="vehicle"
+            (selectedVehicle)="onSelectedVehicle($event)">
+        </app-gui-element-vehicle>
+      </div>
+      <div class="row-wb" *ngIf="selectedVehicle">
+          {{selectedVehicle.id}}
+      </div>
+  </div>
+</div>
